@@ -96,10 +96,22 @@ curl -s -X DELETE "${OPENCAL_BASE_URL:-https://api.opencal.ai}/api/v1/food/log/{
   -H "Authorization: Bearer $OPENCAL_API_KEY"
 ```
 
+## Smart search — finding the right product
+
+The database is primarily English (USDA + generic foods). Follow this strategy:
+
+1. **Search the product name as-is first.** If the user says "Rinderhackfleisch mager", search that.
+2. **If zero results, translate to English and retry.** "Rinderhackfleisch mager" → search "ground beef lean". This covers most cases.
+3. **If multiple results, pick the closest match.** Compare fat %, brand, or description. Go with the best fit.
+4. **If confidence is low, tell the user.** Example: "I found 3 options for ground beef — went with 90% lean (170 kcal/100g). Here are the others if that's not right: [list]. You can also correct it in the app."
+5. **Never hardcode nutrition values from memory.** Always search first. The database has scaled, verified values.
+6. **Try simpler/shorter terms if specific ones fail.** "Rewe Kultur Heidelbeeren" → "blueberries". "More Nutrition Protein Sahne" → "whey protein powder".
+
+The goal: use real DB entries whenever possible. The user can correct in the app if the match isn't perfect — that's better than made-up numbers.
+
 ## Important notes
 
 - Search results are **per 100g** — always scale before logging
 - If the user doesn't mention an amount, ask — don't guess
-- If search returns nothing, try shorter/simpler terms (e.g. "rice" instead of "steamed jasmine rice")
 - Always confirm what you logged so the user can correct mistakes
 - Rate limit: 100 requests/min
