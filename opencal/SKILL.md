@@ -16,10 +16,12 @@ OpenCal is a calorie & nutrition tracker with a beautiful iOS app. This skill le
 1. Download OpenCal from the App Store
 2. Sign in and set your calorie/macro goals
 3. Go to Profile → API Keys → Generate
-4. Set the key:
+4. Save the key permanently (add to your shell profile so it persists across sessions):
    ```bash
-   export OPENCAL_API_KEY="sk_your-key-here"
+   echo 'export OPENCAL_API_KEY="sk_your-key-here"' >> ~/.zshrc
+   source ~/.zshrc
    ```
+   On bash, use `~/.bashrc` instead. The key must survive terminal restarts — a bare `export` only lasts one session.
 
 ## When to use this skill
 
