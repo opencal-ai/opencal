@@ -115,3 +115,11 @@ The goal: use real DB entries whenever possible. The user can correct in the app
 - If the user doesn't mention an amount, ask — don't guess
 - Always confirm what you logged so the user can correct mistakes
 - Rate limit: 100 requests/min
+
+## Updating this skill
+
+```bash
+npx skills update
+```
+
+This pulls the latest version from the OpenCal skill repo. Run `npx skills check` to see if an update is available.
